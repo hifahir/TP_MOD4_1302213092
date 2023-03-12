@@ -1,10 +1,71 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System;
-public class Program
+public class KodePos
 {
-    public static int getKodePos(String kelurahan, int kode)
+    public enum kelurahan { Batununggal, Kujangsari, Mengger, Weters, Cijaura, Jatisari, Margasari, Sekajati, Kebonwaru, Maleer, Samoja }
+    public static int getKodePos(kelurahan kel)
     {
-        string[] kelurahan = { "Batunuggal", "Kujangsari", "Mengger", "Wates", "Cijaura", "Jatisari", "Margasari", "Sakejati", "Kebonwaru", "Maleer", "Samoja" };
-        int[] kode = { 40266, 40287, 40267, 40256, 40287, 40286, 40286, 40286, 40272, 40274, 40273 };
+        int[] kodepos = { 40266, 40287, 40267, 40256, 40287, 40286, 40286, 40272, 40274, 40273 };
+        return kodepos[(int)kel];
+    }
+}
+
+public class doorMachine
+{
+    enum state { terkunci, terbuka };
+
+    public static void Main()
+    {
+        int getKodePos = KodePos.getKodePos(KodePos.kelurahan.Kujangsari);
+        Console.WriteLine(getKodePos);
+        Console.WriteLine();
+
+        state state1 = state.terkunci;
+        string[] kondisi = { "Pintu terkunci", "Pintu terbuka" };
+        while (state1 != null)
+        {
+            Console.WriteLine(kondisi[(int)state1]);
+            Console.WriteLine();
+            Console.WriteLine("Masukkan perintah: ");
+
+            string perintah = Console.ReadLine();
+            switch (state1)
+            {
+                case state.terkunci:
+                    if (perintah == "Kunci pintu")
+                    {
+                        state1 = state.terkunci;
+                    }
+                    else if (perintah == "Buka pintu")
+                    {
+                        state1 = state.terbuka;
+                    }
+                    else
+                    {
+                        state1 = state.terkunci;
+                        Console.WriteLine("perintah salah");
+                    }
+                    Console.WriteLine();
+                    break;
+
+                case state.terbuka:
+                    if (perintah == "Kunci pintu")
+                    {
+                        state1 = state.terkunci;
+                    }
+                    else if (perintah == "Buka pintu")
+                    {
+                        state1 = state.terbuka;
+                    }
+                    else
+                    {
+                        state1 = state.terbuka;
+                        Console.WriteLine("perintah salah");
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+                    break;
+            }
+        }
     }
 }
